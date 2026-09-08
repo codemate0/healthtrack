@@ -1,0 +1,20 @@
+{
+  "code": "0737628064502",
+  "errors": [],
+  "product": {
+    "code": "0737628064502",
+    "product_name": "Rice Noodles",
+    "brands": "Simply Asia, Thai Kitchen",
+    "serving_size": "52 g",
+    "nutriments": {
+      "energy-kcal_100g": 385,
+      "energy-kcal_serving": 200,
+      "proteins_100g": 7.69,
+      "proteins_serving": 4,
+      "carbohydrates_100g": 71.15,
+      "carbohydrates_serving": 37,
+      "fat_100g": 1.92,
+      "fat_serving": 1
+    }
+  }
+}
