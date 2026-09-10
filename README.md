@@ -84,7 +84,7 @@ docs/screenshots/             captured from the running build
 
 **Documentation is a hypothesis.** Three assumptions about the nutrition API were carried for weeks on the strength of having read them. Two were wrong. Version 3 has no full-text search. And browsers refuse to let script set the User-Agent header the provider asks clients to send, which combined with the search service sending no CORS header means search works on device and fails in the web build. Checking all three took under an hour.
 
-**Measure before you optimise.** A caching layer for the dashboard aggregation had been discussed. Measuring it first showed the naive version runs in 15.5 ms at 23,334 records, which is well inside a single frame, so the caching layer was never written.
+**Measure before you optimise.** A caching layer for the dashboard aggregation had been discussed. Measuring it first showed the naive version runs in 5.3 ms at 23,334 records, which is well inside a single frame, so the caching layer was never written.
 
 **Data you do not control will surprise you.** The first live search run, for "oatmeal", returned as its top result a product named "cookies" with the brand recorded as "oatmeal" and an energy value of zero. That single observation settled the design question: manual entry stays a first-class path, and every field remains editable after a database result is applied.
 
