@@ -11,6 +11,7 @@ import {
   getSettings,
   getWeeklySummary,
   dayKey,
+  recordDay,
 } from '../services/storageService';
 
 export default function DashboardScreen() {
@@ -26,8 +27,8 @@ export default function DashboardScreen() {
     ]);
     setWeek(summary);
     setSettings(s);
-    const today = new Date().toISOString().slice(0, 10);
-    const entry = moods.find((m) => dayKey(m.timestamp) === today);
+    const today = dayKey(new Date());
+    const entry = moods.find((m) => recordDay(m) === today);
     setTodayMood(entry ? entry.score : null);
   }, []);
 

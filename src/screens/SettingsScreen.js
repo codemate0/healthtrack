@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, Alert, Platform } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { colors, spacing, card } from '../theme';
 import {
@@ -39,6 +39,21 @@ export default function SettingsScreen() {
     setStatus('All local data cleared.');
   }
 
+  // Clearing is the one action here that cannot be undone, so it asks first.
+  function confirmWipe() {
+    const message =
+      'Every meal, activity and mood record on this device is removed. This cannot be undone.';
+    if (Platform.OS === 'web') {
+      // Alert is not implemented in the web build.
+      if (window.confirm(`Clear all data?\n\n${message}`)) wipe();
+      return;
+    }
+    Alert.alert('Clear all data?', message, [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Clear', style: 'destructive', onPress: wipe },
+    ]);
+  }
+
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.content}>
       <View style={card}>
@@ -68,7 +83,7 @@ export default function SettingsScreen() {
         <Text style={styles.sub}>
           Everything stays on this device. There is no account and nothing is uploaded.
         </Text>
-        <Pressable style={styles.clear} onPress={wipe}>
+        <Pressable style={styles.clear} onPress={confirmWipe}>
           <Text style={styles.clearText}>Clear all data</Text>
         </Pressable>
       </View>

@@ -94,6 +94,8 @@ docs/screenshots/             captured from the running build
 - Test coverage stops at the service boundary. There are no rendering, navigation or end-to-end tests.
 - Search is unavailable in the web build for the CORS reason above. Device builds are unaffected.
 - Activity and mood records support create, read and delete but not update.
+- Outside the meal log, the screens show only the current day. Earlier activity and mood records are kept and counted in the seven-day charts, but cannot be reviewed individually.
+- A daily mood average is computed by the aggregation and is not drawn on any chart.
 - Reminders are absent, because the messaging back end from the original proposal was dropped.
 - Nutrition data comes from a community-maintained source whose per-record accuracy varies and which the provider does not warrant.
 

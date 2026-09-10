@@ -16,15 +16,17 @@ function seed(n) {
     const d = new Date(now);
     d.setDate(d.getDate() - (i % 120));
     const ts = d.toISOString();
-    meals.push({ id: `m${i}`, calories: 300 + (i % 400), timestamp: ts });
+    const day = ts.slice(0, 10);
+    meals.push({ id: `m${i}`, calories: 300 + (i % 400), timestamp: ts, day });
     activity.push({
       id: `a${i}`,
       type: i % 2 ? 'water' : 'workout',
       volumeMl: 250,
       durationMinutes: 20,
       timestamp: ts,
+      day,
     });
-    if (i % 3 === 0) mood.push({ id: `d${i}`, score: (i % 5) + 1, timestamp: ts });
+    if (i % 3 === 0) mood.push({ id: `d${i}`, score: (i % 5) + 1, timestamp: ts, day });
   }
   return { meals, activity, mood };
 }

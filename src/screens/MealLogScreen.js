@@ -3,7 +3,7 @@ import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import MealRow from '../components/MealRow';
 import { colors, spacing } from '../theme';
-import { KEYS, getCollection, deleteRecord } from '../services/storageService';
+import { KEYS, getCollection, deleteRecord, dayKey, recordDay } from '../services/storageService';
 
 // UC-2. Nothing here touches the network, so the list and both edit and
 // delete keep working with no connection.
@@ -22,7 +22,7 @@ export default function MealLogScreen({ navigation }) {
   }
 
   const dayTotal = meals
-    .filter((m) => m.timestamp.slice(0, 10) === new Date().toISOString().slice(0, 10))
+    .filter((m) => recordDay(m) === dayKey(new Date()))
     .reduce((s, m) => s + (Number(m.calories) || 0), 0);
 
   return (

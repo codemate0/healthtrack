@@ -36,7 +36,8 @@ export async function saveCollection(key, records) {
 }
 
 export async function createRecord(key, fields) {
-  const record = { id: newId(), timestamp: new Date().toISOString(), ...fields };
+  const now = new Date();
+  const record = { id: newId(), timestamp: now.toISOString(), day: dayKey(now), ...fields };
   const records = await getCollection(key);
   records.unshift(record);
   await saveCollection(key, records);
@@ -76,8 +77,18 @@ export async function saveSettings(settings) {
   return merged;
 }
 
-export function dayKey(iso) {
-  return iso.slice(0, 10);
+// Bucket by the device's local calendar day. Slicing the ISO string buckets by
+// UTC, which files an evening entry west of Greenwich under the next day.
+export function dayKey(value) {
+  const d = value instanceof Date ? value : new Date(value);
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+// Records written before the day field existed still derive one from the
+// timestamp, so an existing store keeps working after an upgrade.
+export function recordDay(r) {
+  return r.day || dayKey(r.timestamp);
 }
 
 export function lastSevenDayKeys(today = new Date()) {
@@ -85,12 +96,12 @@ export function lastSevenDayKeys(today = new Date()) {
   for (let i = 6; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
-    days.push(d.toISOString().slice(0, 10));
+    days.push(dayKey(d));
   }
   return days;
 }
 
-// UC-5. One read across three collections, bucketed by the ISO date every
+// UC-5. One read across three collections, bucketed by the local day key every
 // record carries. Returns one entry per day so the chart can map straight over it.
 export async function getWeeklySummary(today = new Date()) {
   const [meals, activity, mood] = await Promise.all([
@@ -105,19 +116,19 @@ export async function getWeeklySummary(today = new Date()) {
   days.forEach((d) => { buckets[d] = blank(); });
 
   meals.forEach((m) => {
-    const b = buckets[dayKey(m.timestamp)];
+    const b = buckets[recordDay(m)];
     if (b) b.calories += Number(m.calories) || 0;
   });
 
   activity.forEach((a) => {
-    const b = buckets[dayKey(a.timestamp)];
+    const b = buckets[recordDay(a)];
     if (!b) return;
     if (a.type === 'water') b.waterMl += Number(a.volumeMl) || 0;
     else b.activeMinutes += Number(a.durationMinutes) || 0;
   });
 
   mood.forEach((m) => {
-    const b = buckets[dayKey(m.timestamp)];
+    const b = buckets[recordDay(m)];
     if (b && m.score != null) b.moodScores.push(Number(m.score));
   });
 

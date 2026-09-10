@@ -9,6 +9,8 @@ import {
   deleteRecord,
   getCollection,
   getSettings,
+  dayKey,
+  recordDay,
 } from '../services/storageService';
 
 const WATER = [
@@ -47,8 +49,8 @@ export default function ActivityScreen() {
     load();
   }
 
-  const today = new Date().toISOString().slice(0, 10);
-  const todays = entries.filter((e) => e.timestamp.slice(0, 10) === today);
+  const today = dayKey(new Date());
+  const todays = entries.filter((e) => recordDay(e) === today);
   const water = todays.filter((e) => e.type === 'water').reduce((s, e) => s + (e.volumeMl || 0), 0);
   const minutes = todays
     .filter((e) => e.type === 'workout')

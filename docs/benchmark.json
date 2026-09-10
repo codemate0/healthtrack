@@ -2,31 +2,31 @@
   {
     "records": 234,
     "median": 0.2,
-    "p95": 0.5
+    "p95": 0.9
   },
   {
     "records": 1167,
-    "median": 0.3,
-    "p95": 1.7
+    "median": 0.7,
+    "p95": 1.1
   },
   {
     "records": 2334,
-    "median": 0.8,
-    "p95": 1.5
+    "median": 1.5,
+    "p95": 2.2
   },
   {
     "records": 5834,
-    "median": 1.5,
-    "p95": 2
+    "median": 3.2,
+    "p95": 4.4
   },
   {
     "records": 11667,
-    "median": 4.1,
-    "p95": 6.5
+    "median": 6.7,
+    "p95": 13.1
   },
   {
     "records": 23334,
-    "median": 8.2,
-    "p95": 12.5
+    "median": 13.9,
+    "p95": 17.7
   }
 ]
