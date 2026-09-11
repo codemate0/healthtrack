@@ -121,4 +121,4 @@ Final review and submission. Drafted and finalised **TP03, the final report**, a
 |---|---|---|
 | Bhargavi Udari | Nutrition logging (UC-1, UC-2) | `offApi.js`, `MealLogScreen`, `MealDetailScreen`, `SearchBar`, `NutritionForm`, `MealRow`, response cache |
 | Shravani Vanapakula | Activity and hydration (UC-3) | `storageService.js`, `useAsyncStorage`, `ActivityScreen`, `SettingsScreen`, `GoalProgress` |
-| Manas Teja Katakam |Team captain| Mood and seven-day dashboard (UC-4, UC-5) | `App.js` navigation, `DashboardScreen`, `TrendChart`, `MoodPicker`, `getWeeklySummary`, scaling benchmark |
+| Manas Teja Katakam (Team captain)| Mood and seven-day dashboard (UC-4, UC-5) | `App.js` navigation, `DashboardScreen`, `TrendChart`, `MoodPicker`, `getWeeklySummary`, scaling benchmark |
